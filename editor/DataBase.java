@@ -140,7 +140,6 @@ public class DataBase {
         }
     }
 
-
     public void update_by_id(Map<String, String> q, int id){
         String qe = "UPDATE text SET `title` ='"+q.get("title") +"', `text` = '" + q.get("text") + "' WHERE id = " + id +";";
         System.out.println(qe);
@@ -151,7 +150,6 @@ public class DataBase {
             sqlEx.printStackTrace();
         }
     }
-
 
 }
 

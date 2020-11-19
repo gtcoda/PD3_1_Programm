@@ -22,7 +22,6 @@ public class AddController extends Controller {
     @FXML
     TextField Title;
 
-
     ///////////
     DataBase DB = DataBase.getInstance("");
 
@@ -33,5 +32,7 @@ public class AddController extends Controller {
         rs.put("title",Title.getText());
         DB.insert(rs);
     }
+
+
 
 }
