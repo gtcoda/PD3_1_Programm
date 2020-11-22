@@ -47,9 +47,11 @@ public class CryptoFactory {
     }
 
 
-
-
-
-
+    public Crypto Activity(){
+        if(instance != null){
+           return instance;
+        }
+        return null;
+    }
 
 }

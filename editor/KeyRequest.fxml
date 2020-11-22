@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="134.0" prefWidth="190.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="editor.KeyRequestController">
+   <children>
+      <Label prefHeight="33.0" prefWidth="184.0" text="Выберите тип шифрования:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="TypeEncrypt" prefHeight="25.0" prefWidth="191.0" />
+      <Label text="Пароль:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="Password" prefHeight="25.0" prefWidth="281.0" />
+      <Button mnemonicParsing="false" onAction="#CheckEncrypt" text="Button" />
+   </children>
+</VBox>

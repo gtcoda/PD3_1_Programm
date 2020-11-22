@@ -24,13 +24,27 @@ public class Main extends Application{
     @Override
     public void start(Stage stage) throws Exception {
 
+        CryptoAES aes = new CryptoAES();
+
+        String s = "Hello";
+
+        String encrypt =  aes.Encrypt(s,"123");
+
+        System.out.println("Encrypt: " + encrypt);
+
+        String decrypt =  aes.Decrypt(encrypt,"123");
+
+        System.out.println("Decrypt: " + decrypt);
+
+
+
         DataBase DB = DataBase.getInstance("1");
         Scene scene;
 
         SceneManager SM = SceneManager.getInstance();
         SM.setStage(stage);
 
-        SM.setScene("Display.fxml");
+        SM.setScene("KeyRequest.fxml");
 
     }
 
