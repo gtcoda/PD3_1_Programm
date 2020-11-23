@@ -4,12 +4,15 @@ package editor;
 
 public interface Crypto {
 
+    String CipherMetod();
 
+    void SetKey(String Key);
 
     // Зашифровать строку
-    String Encrypt(String Str, String Key );
+    byte[] Encrypt(String Str);
 
     // Расшифровать строку
-    String Decrypt(String Str, String Key );
+    String Decrypt(byte[] blob);
+
 
 }

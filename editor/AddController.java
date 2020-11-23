@@ -26,11 +26,20 @@ public class AddController extends Controller {
     DataBase DB = DataBase.getInstance("");
 
     @FXML
-    private void add(ActionEvent event) {
-        Map<String,String> rs = new HashMap<String, String>();
-        rs.put("text",HTMLText.getHtmlText());
-        rs.put("title",Title.getText());
+    private void add(ActionEvent event) throws Exception{
+
+        Crypto CR = (new CryptoFactory()).Activity();
+
+        Map<String,byte[]> rs = new HashMap<String,byte[]>();
+
+        rs.put("text",CR.Encrypt(HTMLText.getHtmlText()));
+        rs.put("title",CR.Encrypt(Title.getText()));
+
         DB.insert(rs);
+
+        // Закроем модальное окно
+        SceneManager SM = SceneManager.getInstance();
+        SM.hideModalWindows();
     }
 
 

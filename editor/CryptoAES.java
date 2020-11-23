@@ -20,47 +20,63 @@ public class CryptoAES implements Crypto {
     }
 
     @Override
-    public String Encrypt(String Str, String Key ){
-        return Crypt(Str, Key, Cipher.ENCRYPT_MODE);
+    public String CipherMetod(){
+        return "AES";
+    }
+
+    @Override
+    public void SetKey(String Key){
+        try {
+        SecretKeyFactory keyfactory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+        KeySpec spec = new PBEKeySpec(Key.toCharArray(), " ".getBytes(), 65536, 256);
+        SecretKey tmp = keyfactory.generateSecret(spec);
+        secretKey = new SecretKeySpec(tmp.getEncoded(),"AES");
+        } catch (Exception e){
+            e.printStackTrace();
+            secretKey = null;
+        }
+    }
+
+    @Override
+    public byte[] Encrypt(String Str){
+        try {
+
+            byte[] bytes = Str.getBytes();
+
+            byte[] out = Crypt(bytes, Cipher.ENCRYPT_MODE);
+            return out;
+
+        } catch (Exception e){
+            return null;
+        }
 
     }
 
     @Override
-    public String Decrypt(String Str, String Key ){
-        return Crypt(Str, Key, Cipher.DECRYPT_MODE);
+    public String Decrypt(byte[] blob){
+        try{
+
+            byte[] text = Crypt( blob, Cipher.DECRYPT_MODE);
+
+            return new String(text);
+
+        } catch (Exception e){
+            return null;
+        }
     }
 
 
-    public String Crypt(String Str, String Key, int CliperMode ){
-
-        try {
-
-
-            SecretKeyFactory keyfactory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
-            KeySpec spec = new PBEKeySpec(Key.toCharArray(), " ".getBytes(), 65536, 256);
-            SecretKey tmp = keyfactory.generateSecret(spec);
-            secretKey = new SecretKeySpec(tmp.getEncoded(),"AES");
-
-
-
-            byte[] bytes = Str.getBytes("windows-1252");
-
-
+    public byte[] Crypt(byte[] input, int CliperMode ) throws Exception {
 
 
             Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
             cipher.init(CliperMode, this.secretKey);
-            byte [] output = cipher.doFinal(bytes);
+            byte [] output = cipher.doFinal(input);
 
 
-            String s = new String(output,"windows-1252");
 
+            return output;
 
-            return s;
-        } catch (Exception e){
-            e.printStackTrace();
-            return null;
-        }
 
     }
 

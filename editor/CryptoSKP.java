@@ -6,15 +6,26 @@ public class CryptoSKP implements Crypto {
 
    public CryptoSKP(){}
 
+   @Override
+   public String CipherMetod(){
+       return "SKP";
+   }
 
     @Override
-    public String Encrypt(String Str, String Key ){
+    public void SetKey(String Key){
 
-        return "";
+    }
+
+
+    @Override
+    public byte[] Encrypt(String Str){
+       byte[] b = {0,1};
+
+        return b;
     }
 
     @Override
-    public String Decrypt(String Str, String Key ){
+    public String Decrypt(byte[] blob){
         return "";
     }
 

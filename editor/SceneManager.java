@@ -29,6 +29,7 @@ public class SceneManager {
     static Scene ActiveScene = null;
     static boolean newScene = false;
     Stage stage = null;
+    public Stage modalWindow = null;
 
     String ModalTitle = "";
 
@@ -44,7 +45,6 @@ public class SceneManager {
     public void setStage(Stage st){
         stage = st;
     }
-
 
     public void setScene(String scene) throws Exception{
         if (stage != null) {
@@ -66,7 +66,6 @@ public class SceneManager {
         }
     }
 
-
     public void setHeight(int height){
         stage.setHeight(height);
     }
@@ -79,9 +78,14 @@ public class SceneManager {
         stage.setTitle(title);
     }
 
-
     public void setModalTitle(String title){
         ModalTitle = title;
+    }
+
+    public void hideModalWindows() throws Exception{
+        if(modalWindow != null){
+            modalWindow.close();
+        }
     }
 
     public void setModalWindows(String scene) throws Exception{
@@ -96,22 +100,21 @@ public class SceneManager {
             Scene ModalScene = new Scene(group);
 
             // New window (Stage)
-            Stage newWindow = new Stage();
-            newWindow.setTitle(ModalTitle);
-            newWindow.setScene(ModalScene);
+            modalWindow = new Stage();
+            modalWindow.setTitle(ModalTitle);
+            modalWindow.setScene(ModalScene);
 
             // Specifies the modality for new window.
-            newWindow.initModality(Modality.WINDOW_MODAL);
+            modalWindow.initModality(Modality.WINDOW_MODAL);
 
             // Specifies the owner Window (parent) for new window
-            newWindow.initOwner(stage);
+            modalWindow.initOwner(stage);
 
             // Set position of second window, related to primary window.
-            newWindow.setX(stage.getX() + 200);
-            newWindow.setY(stage.getY() + 100);
+            modalWindow.setX(stage.getX() + 200);
+            modalWindow.setY(stage.getY() + 100);
 
-            newWindow.show();
-
+            modalWindow.show();
 
     }
 

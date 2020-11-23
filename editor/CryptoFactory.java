@@ -43,6 +43,7 @@ public class CryptoFactory {
             default:
                 throw new IllegalArgumentException("Wrong doughnut type:" + type);
         }
+        instance = toReturn;
         return toReturn;
     }
 

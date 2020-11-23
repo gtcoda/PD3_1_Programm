@@ -8,7 +8,6 @@ import javafx.collections.ObservableList;
 import javafx.scene.web.*;
 import java.util.*;
 
-import  javafx.fxml.Initializable;
 import java.net.URL;
 
 import javafx.beans.value.ObservableValue;
@@ -27,8 +26,8 @@ public class EditController extends Controller {
     // текущая запись
      private int id;
 
-    Map<String, Integer> list = new HashMap<String, Integer>();
-
+    Map<byte[], Integer> listEncrypt = new HashMap<byte[], Integer>();
+    Map<String, Integer> listDecrypt = new HashMap<String, Integer>();
 
     public ObservableList<String> langs = FXCollections.observableArrayList();
 
@@ -47,11 +46,13 @@ public class EditController extends Controller {
         langsSelectionModel.selectedItemProperty().addListener(new ChangeListener<String>(){
 
             public void changed(ObservableValue<? extends String> changed, String oldValue, String newValue){
-                id = list.get(newValue);
-                Map<String,String> rs;
+                id = listDecrypt.get(newValue);
+                Crypto CR = (new CryptoFactory()).Activity();
+                Map<String,byte[]> rs = new HashMap<String, byte[]>();
                 rs = DB.get_by_id(id);
-                Title.setText(rs.get("title"));
-                HTMLText.setHtmlText(rs.get("text"));
+
+                Title.setText(CR.Decrypt(rs.get("title")));
+                HTMLText.setHtmlText(CR.Decrypt(rs.get("text")));
             }
         });
 
@@ -59,14 +60,14 @@ public class EditController extends Controller {
 
         ListT.setItems(langs);
 
+        Crypto CR = (new CryptoFactory()).Activity();
 
+        listEncrypt = DB.get();
 
-        list = DB.get();
-
-        for(Map.Entry<String, Integer> item : list.entrySet()){
-            langs.add(item.getKey());
+        for(Map.Entry<byte[], Integer> item : listEncrypt.entrySet()){
+            listDecrypt.put(CR.Decrypt(item.getKey()), item.getValue());
+            langs.add(new String ( CR.Decrypt(item.getKey()) ));
         }
-        HTMLText.setHtmlText("Initialize");
     }
 
 
@@ -74,10 +75,11 @@ public class EditController extends Controller {
 
     @FXML
     private void update(ActionEvent event) {
-        Map<String,String> rs = new HashMap<String, String>();
+        Map<String,byte[]> rs = new HashMap<String, byte[]>();
+        Crypto CR = (new CryptoFactory()).Activity();
 
-        rs.put("text",HTMLText.getHtmlText());
-        rs.put("title",Title.getText());
+        rs.put("text", CR.Encrypt(HTMLText.getHtmlText()));
+        rs.put("title", CR.Encrypt(Title.getText()));
 
         DB.update_by_id(rs,id);
 

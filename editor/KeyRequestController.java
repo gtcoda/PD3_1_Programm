@@ -36,9 +36,11 @@ public class KeyRequestController extends Controller {
 
         if (TypeEncrypt.getValue() == "AES"){
             Crypto CR = (new CryptoFactory()).Factory(CryptoFactory.CryptoTypes.AES);
+            CR.SetKey(Password.getText());
         }
         else if (TypeEncrypt.getValue() == "SKP"){
-            Crypto CR = (new CryptoFactory()).Factory(CryptoFactory.CryptoTypes.AES);
+            Crypto CR = (new CryptoFactory()).Factory(CryptoFactory.CryptoTypes.SKP);
+            CR.SetKey(Password.getText());
         }
 
         SceneManager SM = SceneManager.getInstance();
