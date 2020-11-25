@@ -32,7 +32,7 @@ public class EditController extends Controller {
     public ObservableList<String> langs = FXCollections.observableArrayList();
 
     ///////////
-    DataBase DB = DataBase.getInstance("");
+    DataBase DB = DataBase.getInstance();
 
 
     @Override

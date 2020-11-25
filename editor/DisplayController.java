@@ -34,7 +34,7 @@ public class DisplayController extends Controller {
     public ObservableList<String> langs = FXCollections.observableArrayList();
 
     ///////////
-    DataBase DB = DataBase.getInstance("");
+    DataBase DB = DataBase.getInstance();
 
 
     @Override

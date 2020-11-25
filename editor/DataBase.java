@@ -36,7 +36,7 @@ public class DataBase {
 
     }
 
-    public static DataBase getInstance(String value) {
+    public static DataBase getInstance() {
         if (instance == null) {
             instance = new DataBase();
         }

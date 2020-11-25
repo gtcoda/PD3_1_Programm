@@ -23,7 +23,7 @@ public class AddController extends Controller {
     TextField Title;
 
     ///////////
-    DataBase DB = DataBase.getInstance("");
+    DataBase DB = DataBase.getInstance();
 
     @FXML
     private void add(ActionEvent event) throws Exception{
