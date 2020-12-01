@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.web.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"  fx:controller="editor.TextEditorController">
+   <children>
+      <MenuBar layoutY="2.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="Файл">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Новый" />
+                  <MenuItem mnemonicParsing="false" text="Открыть" onAction="#Open"/>
+                  <MenuItem mnemonicParsing="false" text="Сохранить" onAction="#Save" />
+                  <MenuItem mnemonicParsing="false" text="Сохранить как..." />
+                  <MenuItem mnemonicParsing="false" text="Печать" />
+                  <MenuItem mnemonicParsing="false" text="Свойства" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Правка">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Отменить" />
+                  <MenuItem mnemonicParsing="false" text="Повторить" />
+                  <MenuItem mnemonicParsing="false" text="Копировать" />
+                  <MenuItem mnemonicParsing="false" text="Вставить" />
+                  <MenuItem mnemonicParsing="false" text="Вырезать" />
+                  <MenuItem mnemonicParsing="false" text="Заменить" />
+                  <MenuItem mnemonicParsing="false" text="Найти" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Окно">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Новое" />
+            </items>
+          </Menu>
+            <Menu mnemonicParsing="false" text="Помощь">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Помощь" />
+               </items>
+            </Menu>
+        </menus>
+      </MenuBar>
+      <HTMLEditor fx:id="edit" htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;" layoutY="27.0" prefHeight="375.0" prefWidth="600.0" />
+   </children>
+</AnchorPane>

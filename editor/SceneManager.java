@@ -119,4 +119,12 @@ public class SceneManager {
     }
 
 
+    public Scene getActiveScene(){
+        return ActiveScene;
+    }
+
+    public Stage getActiveStage(){
+        return stage;
+    }
+
 }

@@ -94,4 +94,32 @@ public class CliClipper {
 
     }
 
+
+
+    public byte[] CruptPR(byte[] input){
+        byte output[] = {};
+        byte res[][] = {};
+        int colums = input.length/4;
+        int x = 0;
+
+
+
+        for(int i = 2; i<input.length; i = i+3){
+            byte tmp;
+            tmp = input[i];
+            input[i] = input[i-2];
+            input[i-2] = tmp;
+        }
+
+
+        for(int i = input.length;  i>2; i = i-3){
+            byte tmp;
+            tmp = input[i - 1];
+            input[i-1] = input[i-2 -1];
+            input[i-2-1] = tmp;
+        }
+
+        return output;
+     }
+
 }
