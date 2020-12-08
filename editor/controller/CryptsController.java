@@ -1,5 +1,7 @@
-package editor;
+package editor.controller;
 
+import editor.CliClipper;
+import editor.Controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;

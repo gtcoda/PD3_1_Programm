@@ -30,7 +30,7 @@ public class Controller implements Initializable {
 
     @FXML
     public void edit_edit(ActionEvent event) throws Exception {
-        SM.setScene("Edit.fxml");
+        SM.setScene(SceneManager.AvabilityScene.Edit);
     }
 
     @FXML
@@ -41,6 +41,6 @@ public class Controller implements Initializable {
     @FXML
     public void edit_add(ActionEvent event) throws Exception {
         SM.setModalTitle("Добавить.");
-        SM.setModalWindows("Add.fxml");
+        SM.setModalWindows(SceneManager.AvabilityScene.Add);
     }
 }

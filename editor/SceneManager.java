@@ -23,6 +23,17 @@ import javafx.stage.Stage;
 import java.util.Map;
 
 public class SceneManager {
+// Доступные сцены
+    public enum AvabilityScene{
+        Add,
+        Crypts,
+        Display,
+        Edit,
+        KeyRequest,
+        TextEditor
+    }
+
+    private String path = "fxml/";
 
     private static SceneManager instance = new SceneManager();
 
@@ -33,9 +44,32 @@ public class SceneManager {
 
     String ModalTitle = "";
 
+    private SceneManager() {   }
 
-    private SceneManager() {
+    private String ScenePath(AvabilityScene sc){
+        String r_path = path;
+        switch (sc){
+            case Add:
+                r_path += "Add";
+                break;
+            case Crypts:
+                r_path += "Crypts";
+                break;
+            case Display:
+                r_path += "Display";
+                break;
+            case Edit:
+                r_path += "Edit";
+                break;
+            case KeyRequest:
+                r_path += "KeyRequest";
+                break;
+            case TextEditor:
+                r_path += "TextEditor";
+                break;
 
+        }
+        return r_path + ".fxml";
     }
 
     public static SceneManager getInstance() {
@@ -46,10 +80,11 @@ public class SceneManager {
         stage = st;
     }
 
-    public void setScene(String scene) throws Exception{
+    public void setScene(AvabilityScene sc) throws Exception{
+
         if (stage != null) {
             Group group = new Group();
-            Parent content = FXMLLoader.load(getClass().getResource(scene));
+            Parent content = FXMLLoader.load(getClass().getResource(ScenePath(sc)));
             BorderPane root = new BorderPane();
             root.setCenter(content);
 
@@ -88,33 +123,33 @@ public class SceneManager {
         }
     }
 
-    public void setModalWindows(String scene) throws Exception{
+    public void setModalWindows(AvabilityScene sc) throws Exception{
 
-            Group group = new Group();
-            Parent content = FXMLLoader.load(getClass().getResource(scene));
-            BorderPane root = new BorderPane();
-            root.setCenter(content);
+        Group group = new Group();
+        Parent content = FXMLLoader.load(getClass().getResource(ScenePath(sc)));
+        BorderPane root = new BorderPane();
+        root.setCenter(content);
 
-            group.getChildren().add(root);
+        group.getChildren().add(root);
 
-            Scene ModalScene = new Scene(group);
+        Scene ModalScene = new Scene(group);
 
-            // New window (Stage)
-            modalWindow = new Stage();
-            modalWindow.setTitle(ModalTitle);
-            modalWindow.setScene(ModalScene);
+        // New window (Stage)
+        modalWindow = new Stage();
+        modalWindow.setTitle(ModalTitle);
+        modalWindow.setScene(ModalScene);
 
-            // Specifies the modality for new window.
-            modalWindow.initModality(Modality.WINDOW_MODAL);
+        // Specifies the modality for new window.
+        modalWindow.initModality(Modality.WINDOW_MODAL);
 
-            // Specifies the owner Window (parent) for new window
-            modalWindow.initOwner(stage);
+        // Specifies the owner Window (parent) for new window
+        modalWindow.initOwner(stage);
 
-            // Set position of second window, related to primary window.
-            modalWindow.setX(stage.getX() + 200);
-            modalWindow.setY(stage.getY() + 100);
+        // Set position of second window, related to primary window.
+        modalWindow.setX(stage.getX() + 200);
+        modalWindow.setY(stage.getY() + 100);
 
-            modalWindow.show();
+        modalWindow.show();
 
     }
 

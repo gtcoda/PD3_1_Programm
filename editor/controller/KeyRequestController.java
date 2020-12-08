@@ -1,5 +1,6 @@
-package editor;
+package editor.controller;
 
+import editor.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
@@ -43,9 +44,12 @@ public class KeyRequestController extends Controller {
             CR.SetKey(Password.getText());
         }
 
+        DataBase DB = DataBase.getInstance();
+        /*!*/   DB.getNotes();
+
         SceneManager SM = SceneManager.getInstance();
 
-        SM.setScene("Display.fxml");
+        SM.setScene(SceneManager.AvabilityScene.Display);
 
     }
 

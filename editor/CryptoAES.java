@@ -68,16 +68,11 @@ public class CryptoAES implements Crypto {
 
     public byte[] Crypt(byte[] input, int CliperMode ) throws Exception {
 
-
             Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
             cipher.init(CliperMode, this.secretKey);
             byte [] output = cipher.doFinal(input);
 
-
-
             return output;
-
-
     }
 
 

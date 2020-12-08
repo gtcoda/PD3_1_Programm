@@ -65,6 +65,7 @@ public class DataBase {
         return Map_list;
     }
 
+
 // Получение записи по id
     public Map<String, byte[]> get_by_id(int id){
         String query = "select * from text where id = " + id;
@@ -114,6 +115,35 @@ public class DataBase {
             sqlEx.printStackTrace();
         }
     }
+
+
+
+    public void getNotes(){
+        String query = "select * from text";
+        try {
+            Notes NT = Notes.getInstance();
+
+            // executing SELECT query
+            rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                NT.addNoteCrypts(
+                        rs.getInt("id"),
+                        rs.getBytes("title"),
+                        rs.getBytes("text"),
+                        rs.getString("Cipher")
+                );
+            }
+
+        } catch (SQLException sqlEx) {
+            sqlEx.printStackTrace();
+        }
+
+
+    }
+
+
+
+
 
 }
 

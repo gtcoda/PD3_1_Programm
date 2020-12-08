@@ -6,7 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 
-<Group xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="editor.AddController">
+<Group xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="editor.controller.AddController">
     <children>
         <TextField fx:id="Title" layoutX="3.0" layoutY="4.0" prefHeight="25.0" prefWidth="455.0" />
         <Button fx:id="Add" layoutX="374.0" layoutY="325.0" mnemonicParsing="false" onAction="#add" prefHeight="33.0" prefWidth="79.0" text="ADD" />

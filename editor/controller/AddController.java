@@ -1,5 +1,6 @@
-package editor;
+package editor.controller;
 
+import editor.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;

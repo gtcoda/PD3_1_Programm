@@ -65,10 +65,9 @@ public class Main extends Application{
 
         SceneManager SM = SceneManager.getInstance();
         SM.setStage(stage);
+        //SM.setScene("TextEditor");
 
-        SM.setScene("TextEditor.fxml");
-
-       // SM.setScene("KeyRequest.fxml");
+        SM.setScene(SceneManager.AvabilityScene.KeyRequest);
 
     }
 
