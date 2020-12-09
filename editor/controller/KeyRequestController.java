@@ -18,18 +18,24 @@ import javafx.scene.control.MultipleSelectionModel;
 public class KeyRequestController extends Controller {
 
     @FXML
+    ComboBox Source;
+    @FXML
     ComboBox TypeEncrypt;
     @FXML
     TextField Password;
 
     ObservableList<String> langs = FXCollections.observableArrayList("AES", "SKP");
+    //ObservableList<String> langsSource = FXCollections.observableArrayList("DB", "File");
 
     @Override
     public void initialize(URL location, ResourceBundle resources){
 
        TypeEncrypt.setItems(langs);
 
-        TypeEncrypt.setValue("AES"); // устанавливаем выбранный элемент по умолчанию
+       TypeEncrypt.setValue("AES"); // устанавливаем выбранный элемент по умолчанию
+
+       // Source.setItems(langsSource);
+       // Source.setValue("DB");
     }
 
 
@@ -44,8 +50,8 @@ public class KeyRequestController extends Controller {
             CR.SetKey(Password.getText());
         }
 
-        DataBase DB = DataBase.getInstance();
-        /*!*/   DB.getNotes();
+        Notes N = Notes.getInstance();
+        N.getNoteDB();
 
         SceneManager SM = SceneManager.getInstance();
 

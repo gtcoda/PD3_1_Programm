@@ -27,20 +27,4 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources){
     }
-
-    @FXML
-    public void edit_edit(ActionEvent event) throws Exception {
-        SM.setScene(SceneManager.AvabilityScene.Edit);
-    }
-
-    @FXML
-    public void edit_delete(ActionEvent event) {
-
-    }
-
-    @FXML
-    public void edit_add(ActionEvent event) throws Exception {
-        SM.setModalTitle("Добавить.");
-        SM.setModalWindows(SceneManager.AvabilityScene.Add);
-    }
 }

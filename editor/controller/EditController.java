@@ -1,9 +1,6 @@
 package editor.controller;
 
-import editor.Controller;
-import editor.Crypto;
-import editor.CryptoFactory;
-import editor.DataBase;
+import editor.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -12,6 +9,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.web.*;
 import java.util.*;
 
+import  javafx.fxml.Initializable;
 import java.net.URL;
 
 import javafx.beans.value.ObservableValue;
@@ -21,74 +19,50 @@ import javafx.scene.control.MultipleSelectionModel;
 
 public class EditController extends Controller {
     @FXML
-     public HTMLEditor HTMLText;
+    public HTMLEditor HTMLText;
     @FXML
-     ListView ListT;
+    TextField Title;
     @FXML
-     TextField Title;
-
-    // текущая запись
-     private int id;
-
-    Map<byte[], Integer> listEncrypt = new HashMap<byte[], Integer>();
-    Map<String, Integer> listDecrypt = new HashMap<String, Integer>();
-
-    public ObservableList<String> langs = FXCollections.observableArrayList();
+    Button Action;
 
     ///////////
     DataBase DB = DataBase.getInstance();
-
+    Notes NT = Notes.getInstance();
+    Edit E = Edit.getInstanse();
 
     @Override
     public void initialize(URL location, ResourceBundle resources){
-
-        MultipleSelectionModel<String> langsSelectionModel = ListT.getSelectionModel();
-
-        ListT.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-
-        // устанавливаем слушатель для отслеживания изменений
-        langsSelectionModel.selectedItemProperty().addListener(new ChangeListener<String>(){
-
-            public void changed(ObservableValue<? extends String> changed, String oldValue, String newValue){
-                id = listDecrypt.get(newValue);
-                Crypto CR = (new CryptoFactory()).Activity();
-                Map<String,byte[]> rs = new HashMap<String, byte[]>();
-                rs = DB.get_by_id(id);
-
-                Title.setText(CR.Decrypt(rs.get("title")));
-                HTMLText.setHtmlText(CR.Decrypt(rs.get("text")));
-            }
-        });
-
-
-
-        ListT.setItems(langs);
-
-        Crypto CR = (new CryptoFactory()).Activity();
-
-        listEncrypt = DB.get();
-
-        for(Map.Entry<byte[], Integer> item : listEncrypt.entrySet()){
-            listDecrypt.put(CR.Decrypt(item.getKey()), item.getValue());
-            langs.add(new String ( CR.Decrypt(item.getKey()) ));
+        if(E.Note == null){
+            Action.setText("Add");
+        }
+        else{
+            Action.setText("Update");
+            Title.setText(E.Note.title_decrypt);
+            HTMLText.setHtmlText(E.Note.text_decrypt);
         }
     }
 
 
-
-
     @FXML
-    private void update(ActionEvent event) {
-        Map<String,byte[]> rs = new HashMap<String, byte[]>();
-        Crypto CR = (new CryptoFactory()).Activity();
+    private void Action(ActionEvent event) throws Exception{
 
-        rs.put("text", CR.Encrypt(HTMLText.getHtmlText()));
-        rs.put("title", CR.Encrypt(Title.getText()));
+        if(E.Note == null){
+            Note newNote = new Note();
+            newNote.addTitle(Title.getText());
+            newNote.addText(HTMLText.getHtmlText());
 
-        DB.update_by_id(rs,id);
-
+            NT.addNote(newNote);
+        }
+        else{
+           E.Note.title_decrypt = Title.getText();
+           E.Note.text_decrypt = HTMLText.getHtmlText();
+           NT.updateNote(E.Note);
+        }
+        // Закроем модальное окно
+        SceneManager SM = SceneManager.getInstance();
+        SM.hideModalWindows();
     }
 
-    
+
 
 }

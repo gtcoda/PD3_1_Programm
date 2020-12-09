@@ -1,31 +1,16 @@
 package editor;
-import javafx.application.Application;
 import javafx.scene.Group;
-import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import javafx.scene.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.web.HTMLEditor;
 
-import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
-import javafx.stage.Stage;
-
-import java.util.Map;
 
 public class SceneManager {
 // Доступные сцены
     public enum AvabilityScene{
-        Add,
         Crypts,
         Display,
         Edit,
@@ -49,9 +34,6 @@ public class SceneManager {
     private String ScenePath(AvabilityScene sc){
         String r_path = path;
         switch (sc){
-            case Add:
-                r_path += "Add";
-                break;
             case Crypts:
                 r_path += "Crypts";
                 break;
@@ -130,6 +112,7 @@ public class SceneManager {
         BorderPane root = new BorderPane();
         root.setCenter(content);
 
+
         group.getChildren().add(root);
 
         Scene ModalScene = new Scene(group);
@@ -150,7 +133,6 @@ public class SceneManager {
         modalWindow.setY(stage.getY() + 100);
 
         modalWindow.show();
-
     }
 
 

@@ -10,6 +10,17 @@ public class Note {
 
     public String Cipher;
 
+    // Добавить заголовок записи
+    public void addTitle(String title){
+        title_decrypt = title;
+        Crypt();
+    }
+    // Добавить текст записи
+    public void addText(String text){
+        text_decrypt = text;
+        Crypt();
+    }
+
     public void Set_decrypt(String title, String text, String Ciph){
         title_decrypt = title;
         text_decrypt = text;

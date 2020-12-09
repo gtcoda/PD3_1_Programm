@@ -1,6 +1,7 @@
 package editor;
 
 
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -15,6 +16,7 @@ public class Notes {
     private static Notes instance;
 
     ArrayList<Note> notes = new ArrayList<Note>();
+    DataBase DB = DataBase.getInstance();
 
     private Notes(){  }
 
@@ -25,8 +27,28 @@ public class Notes {
         return instance;
     }
 
+    // Получить все записи из базы
+    public void getNoteDB() throws Exception{
+
+        notes.clear();
+        ResultSet rs;
+
+        rs = DB.getNotes();
+
+        while (rs.next()) {
+            addNoteCrypts(
+                    rs.getInt("id"),
+                    rs.getBytes("title"),
+                    rs.getBytes("text"),
+                    rs.getString("Cipher")
+            );
+        }
+
+    }
+
+
     // Добавить и расшифровать запись
-    public void addNoteCrypts(int id, byte[] title, byte[] text, String Ciph){
+    private void addNoteCrypts(int id, byte[] title, byte[] text, String Ciph){
         Note n = new Note();
         n.Set_encrypt(  id,
                         title,
@@ -35,6 +57,8 @@ public class Notes {
         );
         notes.add(n);
     }
+
+
 
     // Получить все заголовки и их id
     public Map<String, Integer>  getAllTitle(){
@@ -46,7 +70,6 @@ public class Notes {
             AllTitle.put(notes.get(i).title_decrypt,i);
         }
 
-
         return AllTitle;
     }
 
@@ -55,4 +78,19 @@ public class Notes {
         return notes.get(id);
     }
 
+    // Добавление записи(наивный вариант)
+    public void addNote(Note N){
+        DataBase DB = DataBase.getInstance();
+        DB.insert_note(N);
+        notes.clear();
+        DB.getNotes();
+    }
+
+    public void updateNote(Note N) throws Exception{
+        DB.update_note(N);
+    }
+
+    public void deleteNote(Note N) throws Exception{
+        DB.delite_note(N);
+    }
 }

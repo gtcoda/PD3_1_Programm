@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.web.*?>
-<?import javafx.scene.*?>
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.web.WebView?>
 
-<Group xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="editor.controller.DisplayController">
+<Group xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="editor.controller.DisplayController">
     <children>
-        <MenuBar layoutX="2.0" layoutY="4.0" prefHeight="33.0" prefWidth="151.0">
+        <MenuBar layoutX="2.0" layoutY="4.0" prefHeight="33.0" prefWidth="613.0">
             <menus>
                 <Menu mnemonicParsing="false" text="File">
                     <items>
@@ -22,6 +25,11 @@
                         <MenuItem fx:id="Edit_Add" mnemonicParsing="false" onAction="#edit_add" text="Add" />
                     </items>
                 </Menu>
+            <Menu mnemonicParsing="false" text="View">
+               <items>
+                  <MenuItem fx:id="View_Refresh" mnemonicParsing="false" onAction="#View_Refresh" text="Refresh" />
+               </items>
+            </Menu>
                 <Menu mnemonicParsing="false" text="Help">
                     <items>
                         <MenuItem mnemonicParsing="false" text="About" />
@@ -29,8 +37,11 @@
                 </Menu>
             </menus>
         </MenuBar>
-        <ListView fx:id="ListT" layoutX="4.0" layoutY="37.0" prefHeight="398.0" prefWidth="148.0" />
-        <WebView fx:id="WView" layoutX="152.0" layoutY="37.0" prefHeight="398.0" prefWidth="463.0" />
-      <Label fx:id="Title" layoutX="153.0" layoutY="1.0" prefHeight="36.0" prefWidth="462.0" />
+        <ListView fx:id="ListT" layoutX="2.0" layoutY="37.0" prefHeight="395.0" prefWidth="153.0" />
+        <WebView fx:id="WView" layoutX="155.0" layoutY="71.0" prefHeight="363.0" prefWidth="462.0" />
+      <Label fx:id="Title" layoutX="154.0" layoutY="35.0" prefHeight="36.0" prefWidth="462.0">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets></Label>
     </children>
 </Group>

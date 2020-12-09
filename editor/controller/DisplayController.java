@@ -31,6 +31,9 @@ public class DisplayController extends Controller {
 
     Map<String, Integer> AllTitle = new HashMap<String, Integer>();
     Notes NT = Notes.getInstance();
+    Edit E = Edit.getInstanse();
+    SceneManager SM = SceneManager.getInstance();
+
     public ObservableList<String> langs = FXCollections.observableArrayList();
 
     @Override
@@ -45,28 +48,53 @@ public class DisplayController extends Controller {
             public void changed(ObservableValue<? extends String> changed, String oldValue, String newValue){
                 // Получим выбраную запись
                 Note note = NT.getNote(AllTitle.get(newValue));
+                E.editNote(note);
 
                 Title.setText(note.title_decrypt);
                 WView.getEngine().loadContent(note.text_decrypt);
             }
         });
 
-
         AllTitle =  NT.getAllTitle();
         ListT.setItems(langs);
         for(Map.Entry<String, Integer> item : AllTitle.entrySet()){
             langs.add(item.getKey());
         }
-
     }
 
-
-    @Override
+    @FXML
     public void edit_edit(ActionEvent event) throws Exception {
-        SceneManager SM = SceneManager.getInstance();
-
-        SM.setScene(SceneManager.AvabilityScene.Edit);
+        SM.setModalTitle("Добавить.");
+        SM.setModalWindows(SceneManager.AvabilityScene.Edit);
     }
 
+    @FXML
+    public void edit_delete(ActionEvent event) throws Exception {
+        NT.deleteNote(E.Note);
+        langs.remove(langs.indexOf(E.Note.title_decrypt));
+    }
+
+    @FXML
+    public void edit_add(ActionEvent event) throws Exception {
+        SM.setModalTitle("Добавить.");
+
+        E.editNote(null);
+        SM.setModalWindows(SceneManager.AvabilityScene.Edit);
+    }
+
+    @FXML
+    public void View_Refresh(ActionEvent event){
+
+
+    }
+
+    private void renewListTitle(){
+        AllTitle =  NT.getAllTitle();
+        langs.clear();
+
+        for(Map.Entry<String, Integer> item : AllTitle.entrySet()){
+            langs.add(item.getKey());
+        }
+    }
 
 }

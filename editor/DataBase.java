@@ -43,106 +43,58 @@ public class DataBase {
         return instance;
     }
 
-// получим id и название
-    public Map<byte[], Integer> get(){
-        String query = "select id, title from text";
-
-        ArrayList<String> list = new ArrayList<String>();
-        Map<byte[], Integer> Map_list = new HashMap<byte[], Integer>();
-
-        try {
-            // executing SELECT query
-            rs = stmt.executeQuery(query);
-
-            while (rs.next()) {
-                Map_list.put(rs.getBytes("title"), rs.getInt("id"));
-            }
-
-        } catch (SQLException sqlEx) {
-            sqlEx.printStackTrace();
-        }
-
-        return Map_list;
-    }
-
-
-// Получение записи по id
-    public Map<String, byte[]> get_by_id(int id){
-        String query = "select * from text where id = " + id;
-        System.out.printf(query);
-
-        ArrayList<String> list = new ArrayList<String>();
-
-        Map<String, byte[]> Map_list = new HashMap<String, byte[]>();
-
-        try {
-            // executing SELECT query
-            rs = stmt.executeQuery(query);
-
-            while (rs.next()) {
-                Map_list.put("text", rs.getBytes("text"));
-                Map_list.put("title", rs.getBytes("title"));
-            }
-
-
-        } catch (SQLException sqlEx) {
-            sqlEx.printStackTrace();
-        }
-
-        return Map_list;
-    }
-
-
-    public void insert(Map<String, byte[]> q){
-        try {
-            PreparedStatement pstmt = con.prepareStatement("INSERT INTO text(`title`, `text`) VALUES (?,?);");
-            pstmt.setBytes(1, q.get("title"));
-            pstmt.setBytes(2, q.get("text"));
-            pstmt.executeUpdate();
-        } catch (SQLException sqlEx) {
-            sqlEx.printStackTrace();
-        }
-    }
-
-    public void update_by_id(Map<String, byte[]> q, int id){
-        try {
-            PreparedStatement pstmt = con.prepareStatement("UPDATE text SET `title` = ?, `text`=? WHERE id = ?;");
-            pstmt.setBytes(1, q.get("title"));
-            pstmt.setBytes(2, q.get("text"));
-            pstmt.setInt(3, id);
-            pstmt.executeUpdate();
-        } catch (SQLException sqlEx) {
-            sqlEx.printStackTrace();
-        }
-    }
-
-
-
-    public void getNotes(){
+// Получение всех записей
+    public ResultSet getNotes(){
         String query = "select * from text";
         try {
             Notes NT = Notes.getInstance();
 
             // executing SELECT query
             rs = stmt.executeQuery(query);
-            while (rs.next()) {
-                NT.addNoteCrypts(
-                        rs.getInt("id"),
-                        rs.getBytes("title"),
-                        rs.getBytes("text"),
-                        rs.getString("Cipher")
-                );
-            }
+
+            return rs;
 
         } catch (SQLException sqlEx) {
             sqlEx.printStackTrace();
         }
 
+        return null;
 
     }
 
 
+    public void insert_note(Note N){
+        try {
+            PreparedStatement pstmt = con.prepareStatement("INSERT INTO text(`title`, `text`) VALUES (?,?);");
+            pstmt.setBytes(1, N.title_crypt);
+            pstmt.setBytes(2,N.text_crypt);
+            pstmt.executeUpdate();
+        } catch (SQLException sqlEx) {
+            sqlEx.printStackTrace();
+        }
+    }
 
+    public void update_note(Note N){
+        try {
+            PreparedStatement pstmt = con.prepareStatement("UPDATE text SET `title` = ?, `text`=? WHERE id = ?;");
+            pstmt.setBytes(1, N.title_crypt);
+            pstmt.setBytes(2, N.text_crypt);
+            pstmt.setInt(3, N.note_id);
+            pstmt.executeUpdate();
+        } catch (SQLException sqlEx) {
+            sqlEx.printStackTrace();
+        }
+    }
+
+    public  void delite_note(Note N){
+        try {
+            PreparedStatement pstmt = con.prepareStatement("DELETE FROM `text` WHERE `id` = ?;");
+            pstmt.setInt(1, N.note_id);
+            pstmt.execute();
+        } catch (SQLException sqlEx) {
+            sqlEx.printStackTrace();
+        }
+    }
 
 
 }
