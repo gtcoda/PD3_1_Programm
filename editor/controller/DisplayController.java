@@ -29,10 +29,10 @@ public class DisplayController extends Controller {
 
 
 
-    Map<String, Integer> AllTitle = new HashMap<String, Integer>();
-    Notes NT = Notes.getInstance();
-    Edit E = Edit.getInstanse();
-    SceneManager SM = SceneManager.getInstance();
+    private Map<String, Integer> AllTitle = new HashMap<String, Integer>();
+    private Notes NT = Notes.getInstance();
+    private Edit E = Edit.getInstanse();
+    private SceneManager SM = SceneManager.getInstance();
 
     public ObservableList<String> langs = FXCollections.observableArrayList();
 

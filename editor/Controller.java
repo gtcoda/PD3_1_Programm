@@ -21,9 +21,6 @@ import javafx.scene.control.MultipleSelectionModel;
 
 
 public class Controller implements Initializable {
-
-    SceneManager SM = SceneManager.getInstance();
-
     @Override
     public void initialize(URL location, ResourceBundle resources){
     }

@@ -38,7 +38,7 @@ public class KeyRequestController extends Controller {
        // Source.setValue("DB");
     }
 
-
+    @FXML
     public void CheckEncrypt() throws Exception{
 
         if (TypeEncrypt.getValue() == "AES"){

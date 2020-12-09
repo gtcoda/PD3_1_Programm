@@ -22,11 +22,7 @@ public class CryptsController  extends Controller {
 
     @FXML
     private void Crypt(ActionEvent event) throws Exception{
-
-
-
         CC.EncryptFile(Input.getText(), Output.getText(), Key.getText());
-
     }
 
     @FXML
