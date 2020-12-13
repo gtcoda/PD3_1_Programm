@@ -11,22 +11,27 @@ public class Note {
     public String Cipher;
 
     // Добавить заголовок записи
+
     public void setTitle(String title){
         title_decrypt = title;
         Crypt();
     }
     // Добавить текст записи
+
     public void setText(String text){
         text_decrypt = text;
         Crypt();
     }
 
+
     public void setDecrypt(String title, String text, String Ciph){
+
         title_decrypt = title;
         text_decrypt = text;
         Cipher = Ciph;
         Crypt();
     }
+
 
     public void setEncrypt(int id, byte[] title, byte[] text, String Ciph){
         title_crypt = title;

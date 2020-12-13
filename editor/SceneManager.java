@@ -18,6 +18,7 @@ public class SceneManager {
         TextEditor
     }
 
+
     private String path = "fxml/";
 
     private static SceneManager instance = new SceneManager();
@@ -50,6 +51,7 @@ public class SceneManager {
                 r_path += "TextEditor";
                 break;
 
+
         }
         return r_path + ".fxml";
     }
@@ -62,8 +64,8 @@ public class SceneManager {
         stage = st;
     }
 
-    public void setScene(AvScene sc) throws Exception{
 
+    public void setScene(AvScene sc) throws Exception{
         if (stage != null) {
             Group group = new Group();
             Parent content = FXMLLoader.load(getClass().getResource(ScenePath(sc)));
@@ -104,6 +106,7 @@ public class SceneManager {
             modalWindow.close();
         }
     }
+
 
     public void setModalWindows(AvScene sc) throws Exception{
 

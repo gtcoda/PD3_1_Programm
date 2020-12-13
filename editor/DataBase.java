@@ -42,19 +42,19 @@ public class DataBase {
             ResultSet rs;
             stmt = con.createStatement();
 
-            // executing SELECT query
             rs = stmt.executeQuery(query);
 
             return rs;
+
         } catch (SQLException sqlEx) {
             sqlEx.printStackTrace();
         }
 
         return null;
-
     }
 
     public void insertNote(Note N){
+
         try {
             PreparedStatement pstmt = con.prepareStatement("INSERT INTO text(`title`, `text`) VALUES (?,?);");
             pstmt.setBytes(1, N.title_crypt);
@@ -65,7 +65,9 @@ public class DataBase {
         }
     }
 
+
     public void updateNote(Note N){
+
         try {
             PreparedStatement pstmt = con.prepareStatement("UPDATE text SET `title` = ?, `text`=? WHERE id = ?;");
             pstmt.setBytes(1, N.title_crypt);
@@ -86,6 +88,7 @@ public class DataBase {
             sqlEx.printStackTrace();
         }
     }
+
 
 }
 

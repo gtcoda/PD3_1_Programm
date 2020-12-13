@@ -5,6 +5,7 @@ import editor.Note;
 public class Edit {
     public Note Note;
 
+
     private static Edit instanse;
 
     private Edit() { }

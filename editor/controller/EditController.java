@@ -23,6 +23,7 @@ public class EditController extends Controller {
     private Notes NT = Notes.getInstance();
     private Edit E = Edit.getInstanse();
 
+
     @Override
     public void initialize(URL location, ResourceBundle resources){
         if(E.Note == null){
