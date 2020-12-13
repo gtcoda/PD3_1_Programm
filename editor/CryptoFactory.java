@@ -7,10 +7,10 @@ import java.lang.reflect.*;
 
 public class CryptoFactory {
 
-    public static Crypto instance;
+    private static Crypto instance;
 
-    static Crypto C_AES = null;
-    static Crypto C_SKP = null;
+    private static Crypto C_AES = null;
+    private static Crypto C_SKP = null;
 
     public enum CryptoTypes {
         AES, // AES

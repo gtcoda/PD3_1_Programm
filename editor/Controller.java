@@ -21,26 +21,7 @@ import javafx.scene.control.MultipleSelectionModel;
 
 
 public class Controller implements Initializable {
-
-    SceneManager SM = SceneManager.getInstance();
-
     @Override
     public void initialize(URL location, ResourceBundle resources){
-    }
-
-    @FXML
-    public void edit_edit(ActionEvent event) throws Exception {
-        SM.setScene("Edit.fxml");
-    }
-
-    @FXML
-    public void edit_delete(ActionEvent event) {
-
-    }
-
-    @FXML
-    public void edit_add(ActionEvent event) throws Exception {
-        SM.setModalTitle("Добавить.");
-        SM.setModalWindows("Add.fxml");
     }
 }

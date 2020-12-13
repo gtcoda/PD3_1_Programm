@@ -1,10 +1,7 @@
 package editor;
 
 import java.sql.*;
-import java.util.HashMap;
-import java.util.Map;
 
-import java.util.ArrayList;
 // класс работы с БД
 
 public class DataBase {
@@ -16,9 +13,6 @@ public class DataBase {
 
     // JDBC variables for opening and managing connection
     private static Connection con;
-    private static Statement stmt;
-    private static ResultSet rs;
-
     private static DataBase instance;
 
     private DataBase() {
@@ -26,10 +20,6 @@ public class DataBase {
         try {
             // opening database connection to MySQL server
             con = DriverManager.getConnection(url, user, password);
-
-            // getting Statement object to execute query
-            stmt = con.createStatement();
-
         } catch (SQLException sqlEx) {
             sqlEx.printStackTrace();
         }
@@ -43,73 +33,55 @@ public class DataBase {
         return instance;
     }
 
-// получим id и название
-    public Map<byte[], Integer> get(){
-        String query = "select id, title from text";
-
-        ArrayList<String> list = new ArrayList<String>();
-        Map<byte[], Integer> Map_list = new HashMap<byte[], Integer>();
-
+// Получение всех записей
+    public ResultSet getNotes(){
+        String query = "select * from text";
         try {
+            Notes NT = Notes.getInstance();
+            Statement stmt;
+            ResultSet rs;
+            stmt = con.createStatement();
+
             // executing SELECT query
             rs = stmt.executeQuery(query);
 
-            while (rs.next()) {
-                Map_list.put(rs.getBytes("title"), rs.getInt("id"));
-            }
-
+            return rs;
         } catch (SQLException sqlEx) {
             sqlEx.printStackTrace();
         }
 
-        return Map_list;
+        return null;
+
     }
 
-// Получение записи по id
-    public Map<String, byte[]> get_by_id(int id){
-        String query = "select * from text where id = " + id;
-        System.out.printf(query);
-
-        ArrayList<String> list = new ArrayList<String>();
-
-        Map<String, byte[]> Map_list = new HashMap<String, byte[]>();
-
-        try {
-            // executing SELECT query
-            rs = stmt.executeQuery(query);
-
-            while (rs.next()) {
-                Map_list.put("text", rs.getBytes("text"));
-                Map_list.put("title", rs.getBytes("title"));
-            }
-
-
-        } catch (SQLException sqlEx) {
-            sqlEx.printStackTrace();
-        }
-
-        return Map_list;
-    }
-
-
-    public void insert(Map<String, byte[]> q){
+    public void insertNote(Note N){
         try {
             PreparedStatement pstmt = con.prepareStatement("INSERT INTO text(`title`, `text`) VALUES (?,?);");
-            pstmt.setBytes(1, q.get("title"));
-            pstmt.setBytes(2, q.get("text"));
+            pstmt.setBytes(1, N.title_crypt);
+            pstmt.setBytes(2,N.text_crypt);
             pstmt.executeUpdate();
         } catch (SQLException sqlEx) {
             sqlEx.printStackTrace();
         }
     }
 
-    public void update_by_id(Map<String, byte[]> q, int id){
+    public void updateNote(Note N){
         try {
             PreparedStatement pstmt = con.prepareStatement("UPDATE text SET `title` = ?, `text`=? WHERE id = ?;");
-            pstmt.setBytes(1, q.get("title"));
-            pstmt.setBytes(2, q.get("text"));
-            pstmt.setInt(3, id);
+            pstmt.setBytes(1, N.title_crypt);
+            pstmt.setBytes(2, N.text_crypt);
+            pstmt.setInt(3, N.note_id);
             pstmt.executeUpdate();
+        } catch (SQLException sqlEx) {
+            sqlEx.printStackTrace();
+        }
+    }
+
+    public  void deleteNote(Note N){
+        try {
+            PreparedStatement pstmt = con.prepareStatement("DELETE FROM `text` WHERE `id` = ?;");
+            pstmt.setInt(1, N.note_id);
+            pstmt.execute();
         } catch (SQLException sqlEx) {
             sqlEx.printStackTrace();
         }

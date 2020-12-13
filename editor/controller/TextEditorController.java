@@ -1,5 +1,7 @@
-package editor;
+package editor.controller;
 
+import editor.Controller;
+import editor.SceneManager;
 import javafx.fxml.FXML;
 import javafx.scene.web.HTMLEditor;
 import javafx.stage.FileChooser;

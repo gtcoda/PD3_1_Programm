@@ -1,41 +1,57 @@
 package editor;
-import javafx.application.Application;
 import javafx.scene.Group;
-import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import javafx.scene.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.web.HTMLEditor;
 
-import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
-import javafx.stage.Stage;
-
-import java.util.Map;
 
 public class SceneManager {
+// Доступные сцены
+    public enum AvScene {
+        Crypts,
+        Display,
+        Edit,
+        KeyRequest,
+        TextEditor
+    }
+
+    private String path = "fxml/";
 
     private static SceneManager instance = new SceneManager();
 
-    static Scene ActiveScene = null;
-    static boolean newScene = false;
-    Stage stage = null;
-    public Stage modalWindow = null;
+    private Scene ActiveScene = null;
+    private boolean newScene = false;
+    private Stage stage = null;
+    private Stage modalWindow = null;
+    private String ModalTitle = "";
 
-    String ModalTitle = "";
 
+    private SceneManager() {   }
 
-    private SceneManager() {
+    private String ScenePath(AvScene sc){
+        String r_path = path;
+        switch (sc){
+            case Crypts:
+                r_path += "Crypts";
+                break;
+            case Display:
+                r_path += "Display";
+                break;
+            case Edit:
+                r_path += "Edit";
+                break;
+            case KeyRequest:
+                r_path += "KeyRequest";
+                break;
+            case TextEditor:
+                r_path += "TextEditor";
+                break;
 
+        }
+        return r_path + ".fxml";
     }
 
     public static SceneManager getInstance() {
@@ -46,10 +62,11 @@ public class SceneManager {
         stage = st;
     }
 
-    public void setScene(String scene) throws Exception{
+    public void setScene(AvScene sc) throws Exception{
+
         if (stage != null) {
             Group group = new Group();
-            Parent content = FXMLLoader.load(getClass().getResource(scene));
+            Parent content = FXMLLoader.load(getClass().getResource(ScenePath(sc)));
             BorderPane root = new BorderPane();
             root.setCenter(content);
 
@@ -88,34 +105,34 @@ public class SceneManager {
         }
     }
 
-    public void setModalWindows(String scene) throws Exception{
+    public void setModalWindows(AvScene sc) throws Exception{
 
-            Group group = new Group();
-            Parent content = FXMLLoader.load(getClass().getResource(scene));
-            BorderPane root = new BorderPane();
-            root.setCenter(content);
+        Group group = new Group();
+        Parent content = FXMLLoader.load(getClass().getResource(ScenePath(sc)));
+        BorderPane root = new BorderPane();
+        root.setCenter(content);
 
-            group.getChildren().add(root);
 
-            Scene ModalScene = new Scene(group);
+        group.getChildren().add(root);
 
-            // New window (Stage)
-            modalWindow = new Stage();
-            modalWindow.setTitle(ModalTitle);
-            modalWindow.setScene(ModalScene);
+        Scene ModalScene = new Scene(group);
 
-            // Specifies the modality for new window.
-            modalWindow.initModality(Modality.WINDOW_MODAL);
+        // New window (Stage)
+        modalWindow = new Stage();
+        modalWindow.setTitle(ModalTitle);
+        modalWindow.setScene(ModalScene);
 
-            // Specifies the owner Window (parent) for new window
-            modalWindow.initOwner(stage);
+        // Specifies the modality for new window.
+        modalWindow.initModality(Modality.WINDOW_MODAL);
 
-            // Set position of second window, related to primary window.
-            modalWindow.setX(stage.getX() + 200);
-            modalWindow.setY(stage.getY() + 100);
+        // Specifies the owner Window (parent) for new window
+        modalWindow.initOwner(stage);
 
-            modalWindow.show();
+        // Set position of second window, related to primary window.
+        modalWindow.setX(stage.getX() + 200);
+        modalWindow.setY(stage.getY() + 100);
 
+        modalWindow.show();
     }
 
 

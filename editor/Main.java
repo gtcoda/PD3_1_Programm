@@ -1,19 +1,10 @@
 package editor;
 import com.beust.jcommander.JCommander;
 import javafx.application.Application;
-import javafx.scene.Group;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.scene.*;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.web.HTMLEditor;
 
-import java.sql.SQLException;
 import java.util.List;
-
-
-import javax.crypto.Cipher;
 
 public class Main extends Application{
 
@@ -65,10 +56,9 @@ public class Main extends Application{
 
         SceneManager SM = SceneManager.getInstance();
         SM.setStage(stage);
+        //SM.setScene("TextEditor");
 
-        SM.setScene("TextEditor.fxml");
-
-       // SM.setScene("KeyRequest.fxml");
+        SM.setScene(SceneManager.AvScene.KeyRequest);
 
     }
 

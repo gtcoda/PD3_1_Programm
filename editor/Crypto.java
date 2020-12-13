@@ -4,7 +4,7 @@ package editor;
 
 public interface Crypto {
 
-    String CipherMetod();
+    String CipherMethod();
 
     void SetKey(String Key);
 

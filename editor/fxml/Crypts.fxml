@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="175.0" prefWidth="181.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="editor.CryptsController">
+<AnchorPane prefHeight="175.0" prefWidth="181.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="editor.controller.CryptsController">
    <children>
       <Label layoutY="6.0" text="Input" />
       <TextField fx:id="Input" layoutY="23.0" />

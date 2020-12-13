@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.web.WebView?>
+
+<Group xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="editor.controller.DisplayController">
+    <children>
+        <MenuBar layoutX="2.0" layoutY="4.0" prefHeight="33.0" prefWidth="613.0">
+            <menus>
+                <Menu mnemonicParsing="false" text="File">
+                    <items>
+                        <MenuItem fx:id="New" mnemonicParsing="false" text="New" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                    <items>
+                  <MenuItem fx:id="Edit_Edit" mnemonicParsing="false" onAction="#edit_edit" text="Edit" />
+                        <MenuItem fx:id="Edit_Delete" mnemonicParsing="false" onAction="#edit_delete" text="Delete" />
+                        <MenuItem fx:id="Edit_Add" mnemonicParsing="false" onAction="#edit_add" text="Add" />
+                    </items>
+                </Menu>
+            <Menu mnemonicParsing="false" text="View">
+               <items>
+                  <MenuItem fx:id="View_Refresh" mnemonicParsing="false" onAction="#View_Refresh" text="Refresh" />
+               </items>
+            </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="About" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+        <ListView fx:id="ListT" layoutX="2.0" layoutY="37.0" prefHeight="395.0" prefWidth="153.0" />
+        <WebView fx:id="WView" layoutX="155.0" layoutY="71.0" prefHeight="363.0" prefWidth="462.0" />
+      <Label fx:id="Title" layoutX="154.0" layoutY="35.0" prefHeight="36.0" prefWidth="462.0">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets></Label>
+    </children>
+</Group>
