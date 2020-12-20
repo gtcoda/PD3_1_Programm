@@ -15,8 +15,8 @@ public class Notes {
 
     private static Notes instance;
 
-    private ArrayList<Note> notes = new ArrayList<Note>();
-    private DataBase DB = DataBase.getInstance();
+    ArrayList<Note> notes = new ArrayList<Note>();
+    DataBase DB = DataBase.getInstance();
 
     private Notes(){  }
 
@@ -50,7 +50,7 @@ public class Notes {
     // Добавить и расшифровать запись
     private void addNoteCrypts(int id, byte[] title, byte[] text, String Ciph){
         Note n = new Note();
-        n.setEncrypt(  id,
+        n.Set_encrypt(  id,
                         title,
                         text,
                         Ciph
@@ -79,19 +79,22 @@ public class Notes {
     }
 
     // Добавление записи(наивный вариант)
-    public void addNote(Note N) throws Exception{
+    public void addNote(Note N){
         DataBase DB = DataBase.getInstance();
-        DB.insertNote(N);
-        getNoteDB();
+
+        Crypto SR = (new CryptoFactory()).Activity();
+
+        N.setCipher(SR.CipherMethod());
+        DB.insert_note(N);
+        notes.clear();
+        DB.getNotes();
     }
 
     public void updateNote(Note N) throws Exception{
-        DB.updateNote(N);
-        getNoteDB();
+        DB.update_note(N);
     }
 
     public void deleteNote(Note N) throws Exception{
-        DB.deleteNote(N);
-        getNoteDB();
+        DB.delite_note(N);
     }
 }

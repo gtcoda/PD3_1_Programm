@@ -7,15 +7,15 @@ import java.lang.reflect.*;
 
 public class CryptoFactory {
 
-    private static Crypto instance;
+    public static Crypto instance;
 
-    private static Crypto C_AES = null;
-    private static Crypto C_SKP = null;
+    static Crypto C_AES = null;
+    static Crypto C_SKP = null;
 
     public enum CryptoTypes {
         AES, // AES
-        SKP, // Single key permutation
-        ALMOND
+        SKP // Single key permutation
+
     }
 
     public Crypto Factory(CryptoTypes type){
@@ -27,6 +27,7 @@ public class CryptoFactory {
                 }
                 else {
                     toReturn = new CryptoAES();
+                    C_AES = toReturn;
                 }
                 break;
             case SKP:
@@ -35,13 +36,11 @@ public class CryptoFactory {
                 }
                 else {
                     toReturn = new CryptoSKP();
+                    C_SKP = toReturn;
                 }
                 break;
-            case ALMOND:
-
-                break;
             default:
-                throw new IllegalArgumentException("Wrong doughnut type:" + type);
+                throw new IllegalArgumentException("Неверный тип:" + type);
         }
         instance = toReturn;
         return toReturn;

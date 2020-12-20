@@ -20,7 +20,7 @@ import javafx.scene.control.MultipleSelectionModel;
 * */
 
 
-public class Controller implements Initializable {
+public abstract class Controller implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources){
     }

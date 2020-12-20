@@ -3,8 +3,7 @@ package editor.controller;
 import editor.Note;
 
 public class Edit {
-    public Note Note;
-
+    Note Note;
 
     private static Edit instanse;
 

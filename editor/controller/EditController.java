@@ -4,25 +4,31 @@ import editor.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.web.*;
 import java.util.*;
 
+import  javafx.fxml.Initializable;
 import java.net.URL;
+
+import javafx.beans.value.ObservableValue;
+import javafx.beans.value.ChangeListener;
+import javafx.scene.control.MultipleSelectionModel;
 
 
 public class EditController extends Controller {
     @FXML
-    private HTMLEditor HTMLText;
+    public HTMLEditor HTMLText;
     @FXML
-    private TextField Title;
+    TextField Title;
     @FXML
-    private Button Action;
+    Button Action;
 
     ///////////
-    private DataBase DB = DataBase.getInstance();
-    private Notes NT = Notes.getInstance();
-    private Edit E = Edit.getInstanse();
-
+    DataBase DB = DataBase.getInstance();
+    Notes NT = Notes.getInstance();
+    Edit E = Edit.getInstanse();
 
     @Override
     public void initialize(URL location, ResourceBundle resources){
@@ -42,8 +48,8 @@ public class EditController extends Controller {
 
         if(E.Note == null){
             Note newNote = new Note();
-            newNote.setTitle(Title.getText());
-            newNote.setText(HTMLText.getHtmlText());
+            newNote.addTitle(Title.getText());
+            newNote.addText(HTMLText.getHtmlText());
 
             NT.addNote(newNote);
         }

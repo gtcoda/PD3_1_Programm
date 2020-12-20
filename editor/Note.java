@@ -11,29 +11,43 @@ public class Note {
     public String Cipher;
 
     // Добавить заголовок записи
-
-    public void setTitle(String title){
+    public void addTitle(String title){
         title_decrypt = title;
         Crypt();
     }
     // Добавить текст записи
-
-    public void setText(String text){
+    public void addText(String text){
         text_decrypt = text;
         Crypt();
     }
 
+    public void setCipher(String Cip){
+        Cipher = Cip;
+    }
 
-    public void setDecrypt(String title, String text, String Ciph){
-
+    public void Set_decrypt(String title, String text, String Ciph){
         title_decrypt = title;
         text_decrypt = text;
         Cipher = Ciph;
         Crypt();
     }
 
+    private void Crypt() {
+        Crypto CC = (new CryptoFactory()).Activity();
+        try {
+            if (title_decrypt != null) {
+                title_crypt = CC.Encrypt(title_decrypt);
+            }
+            if (text_decrypt != null) {
+                text_crypt = CC.Encrypt(text_decrypt);
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
 
-    public void setEncrypt(int id, byte[] title, byte[] text, String Ciph){
+    public void Set_encrypt(int id, byte[] title, byte[] text, String Ciph){
         title_crypt = title;
         text_crypt = text;
         note_id = id;
@@ -41,16 +55,12 @@ public class Note {
         Decrypt();
     }
 
-    private void Crypt(){
-        Crypto CC = (new CryptoFactory()).Activity();
-        title_crypt = CC.Encrypt(title_decrypt);
-        text_crypt = CC.Encrypt(text_decrypt);
-    }
 
     private void Decrypt(){
         Crypto CC = (new CryptoFactory()).Activity();
         title_decrypt = CC.Decrypt(title_crypt);
         text_decrypt = CC.Decrypt(text_crypt);
     }
+
 
 }

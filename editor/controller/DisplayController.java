@@ -65,8 +65,7 @@ public class DisplayController extends Controller {
     @FXML
     public void edit_edit(ActionEvent event) throws Exception {
         SM.setModalTitle("Добавить.");
-        SM.setModalWindows(SceneManager.AvScene.Edit);
-
+        SM.setModalWindows(SceneManager.AvabilityScene.Edit);
     }
 
     @FXML
@@ -80,8 +79,7 @@ public class DisplayController extends Controller {
         SM.setModalTitle("Добавить.");
 
         E.editNote(null);
-        SM.setModalWindows(SceneManager.AvScene.Edit);
-
+        SM.setModalWindows(SceneManager.AvabilityScene.Edit);
     }
 
     @FXML

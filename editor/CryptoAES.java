@@ -16,8 +16,7 @@ public class CryptoAES implements Crypto {
     private SecretKey secretKey;
 
 
-    public CryptoAES() {
-    }
+    public CryptoAES() { }
 
     @Override
     public String CipherMethod(){
@@ -66,10 +65,10 @@ public class CryptoAES implements Crypto {
     }
 
 
-    public byte[] Crypt(byte[] input, int CliperMode ) throws Exception {
+    public byte[] Crypt(byte[] input, int CipherMode ) throws Exception {
 
             Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
-            cipher.init(CliperMode, this.secretKey);
+            cipher.init(CipherMode, this.secretKey);
             byte [] output = cipher.doFinal(input);
 
             return output;

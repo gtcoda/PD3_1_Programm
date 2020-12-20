@@ -1,7 +1,6 @@
 package editor;
 
 import java.sql.*;
-
 // класс работы с БД
 
 public class DataBase {
@@ -13,6 +12,9 @@ public class DataBase {
 
     // JDBC variables for opening and managing connection
     private static Connection con;
+    private static Statement stmt;
+    private static ResultSet rs;
+
     private static DataBase instance;
 
     private DataBase() {
@@ -20,6 +22,10 @@ public class DataBase {
         try {
             // opening database connection to MySQL server
             con = DriverManager.getConnection(url, user, password);
+
+            // getting Statement object to execute query
+            stmt = con.createStatement();
+
         } catch (SQLException sqlEx) {
             sqlEx.printStackTrace();
         }
@@ -35,13 +41,13 @@ public class DataBase {
 
 // Получение всех записей
     public ResultSet getNotes(){
-        String query = "select * from text";
+        Crypto CR = (new CryptoFactory()).Activity();
+
+        String query = "select * from text Where Cipher = '" + CR.CipherMethod()+"'";
         try {
             Notes NT = Notes.getInstance();
-            Statement stmt;
-            ResultSet rs;
-            stmt = con.createStatement();
-
+            System.out.println(query);
+            // executing SELECT query
             rs = stmt.executeQuery(query);
 
             return rs;
@@ -51,23 +57,23 @@ public class DataBase {
         }
 
         return null;
+
     }
 
-    public void insertNote(Note N){
 
+    public void insert_note(Note N){
         try {
-            PreparedStatement pstmt = con.prepareStatement("INSERT INTO text(`title`, `text`) VALUES (?,?);");
+            PreparedStatement pstmt = con.prepareStatement("INSERT INTO text(`title`, `text`, `Cipher`) VALUES (?,?,?);");
             pstmt.setBytes(1, N.title_crypt);
             pstmt.setBytes(2,N.text_crypt);
+            pstmt.setString(3,N.Cipher);
             pstmt.executeUpdate();
         } catch (SQLException sqlEx) {
             sqlEx.printStackTrace();
         }
     }
 
-
-    public void updateNote(Note N){
-
+    public void update_note(Note N){
         try {
             PreparedStatement pstmt = con.prepareStatement("UPDATE text SET `title` = ?, `text`=? WHERE id = ?;");
             pstmt.setBytes(1, N.title_crypt);
@@ -79,7 +85,7 @@ public class DataBase {
         }
     }
 
-    public  void deleteNote(Note N){
+    public  void delite_note(Note N){
         try {
             PreparedStatement pstmt = con.prepareStatement("DELETE FROM `text` WHERE `id` = ?;");
             pstmt.setInt(1, N.note_id);

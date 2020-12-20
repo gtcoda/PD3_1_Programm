@@ -11,6 +11,10 @@ import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import javafx.beans.value.ObservableValue;
+import javafx.beans.value.ChangeListener;
+import javafx.scene.control.MultipleSelectionModel;
+
 public class KeyRequestController extends Controller {
 
     @FXML
@@ -51,7 +55,7 @@ public class KeyRequestController extends Controller {
 
         SceneManager SM = SceneManager.getInstance();
 
-        SM.setScene(SceneManager.AvScene.Display);
+        SM.setScene(SceneManager.AvabilityScene.Display);
 
     }
 

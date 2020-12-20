@@ -8,31 +8,34 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 
+import java.io.IOException;
+
 public class SceneManager {
 // Доступные сцены
-    public enum AvScene {
+    public enum AvabilityScene{
         Crypts,
         Display,
         Edit,
         KeyRequest,
-        TextEditor
+        TextEditor,
+        Protected,
+        ProtectedOK
     }
-
 
     private String path = "fxml/";
 
     private static SceneManager instance = new SceneManager();
 
-    private Scene ActiveScene = null;
-    private boolean newScene = false;
-    private Stage stage = null;
-    private Stage modalWindow = null;
-    private String ModalTitle = "";
+    static Scene ActiveScene = null;
+    static boolean newScene = false;
+    Stage stage = null;
+    public Stage modalWindow = null;
 
+    String ModalTitle = "";
 
     private SceneManager() {   }
 
-    private String ScenePath(AvScene sc){
+    private String ScenePath(AvabilityScene sc){
         String r_path = path;
         switch (sc){
             case Crypts:
@@ -50,8 +53,14 @@ public class SceneManager {
             case TextEditor:
                 r_path += "TextEditor";
                 break;
-
-
+            case Protected:
+                r_path += "Protected";
+                break;
+            case ProtectedOK:
+                r_path += "ProteectedOK";
+                break;
+            default:
+                throw new IllegalArgumentException("Неверный тип:" + sc);
         }
         return r_path + ".fxml";
     }
@@ -61,14 +70,21 @@ public class SceneManager {
     }
 
     public void setStage(Stage st){
-        stage = st;
+        if(st != null) {
+            stage = st;
+        }
+        else{
+            throw new IllegalArgumentException("Передан неверный обьект!");
+        }
     }
 
+    public void setScene(AvabilityScene sc) {
 
-    public void setScene(AvScene sc) throws Exception{
         if (stage != null) {
             Group group = new Group();
+            try {
             Parent content = FXMLLoader.load(getClass().getResource(ScenePath(sc)));
+
             BorderPane root = new BorderPane();
             root.setCenter(content);
 
@@ -79,6 +95,20 @@ public class SceneManager {
 
             stage.setScene(ActiveScene);
             stage.show();
+
+            } catch (IOException ex) {
+                System.out.println("IOException");
+                ex.printStackTrace();
+            }
+            catch(RuntimeException ex) {
+                System.out.println("RuntimeException");
+                ex.printStackTrace();
+            }
+            catch(Exception ex) {
+                System.out.println("Exception");
+                ex.printStackTrace();
+            }
+
         }
         else {
             System.out.println("Установка сцены без stage!");
@@ -86,15 +116,21 @@ public class SceneManager {
     }
 
     public void setHeight(int height){
-        stage.setHeight(height);
+        if(stage != null) {
+            stage.setHeight(height);
+        }
     }
 
     public void setWidth(int width){
-        stage.setWidth(width);
+        if (stage != null) {
+            stage.setWidth(width);
+        }
     }
 
     public void setTitle(String title){
-        stage.setTitle(title);
+        if (stage != null){
+            stage.setTitle(title);
+        }
     }
 
     public void setModalTitle(String title){
@@ -107,8 +143,7 @@ public class SceneManager {
         }
     }
 
-
-    public void setModalWindows(AvScene sc) throws Exception{
+    public void setModalWindows(AvabilityScene sc) throws Exception{
 
         Group group = new Group();
         Parent content = FXMLLoader.load(getClass().getResource(ScenePath(sc)));
